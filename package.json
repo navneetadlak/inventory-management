@@ -1,0 +1,14 @@
+{
+  "name": "inventory_mgmt",
+  "version": "1.0.0",
+  "description": "to manage inventory store of e-commerce app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "navneet adlak",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

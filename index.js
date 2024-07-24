@@ -1,34 +1,35 @@
 import express from 'express';
+// const express = require('express');
 import ProductController from './src/Controllers/product.controller';
 import ejsLayouts from 'express-ejs-layouts';
-import path from "path";
+import path from 'path';
+import validationMiddleware from './src/middlewares/validation.middleware';
 
 // Initialize the express server
-const server = express();
+const app = express();
 
 // Middleware to parse JSON bodies
-server.use(express.urlencoded({extended : true }));
+app.use(express.urlencoded({extended : true }));
+// Use EJS Layouts middleware
+app.use(ejsLayouts);
+app.use(express.json);
 
 // setup view engine settings
-server.set('view engine', 'ejs');
-server.set('views', path.join(path.resolve(), 'src', 'views'));
-
-// Use EJS Layouts middleware
-server.use(ejsLayouts);
+app.set('view engine', 'ejs');
+app.set('views', path.join(path.resolve(), 'src', 'views'));
 
 // creating instance of product contoller so we can access the methods of class ProductController
 const productController =  new ProductController();
 
 // Define routes
-server.get('/', (req, res) => productController.getProducts(req, res));
-server.get('/new', (req, res) => productController.getAddForm(req, res));
-server.post('/', (req, res) => productController.addnewProduct(req, res));
+server.get('/', productController.getProducts);
+server.get('/add-product', productController.getAddProduct);
+server.post('/', validationMiddleware, productController.postAddProduct);
 
 // Serve static files
 server.use(express.static(path.join(path.resolve(), 'src', 'views')));
 
 // Start the server and add error handling
-
 server.listen(3400, (err) => {
     if (err) {
         console.error('Failed to start server:', err);

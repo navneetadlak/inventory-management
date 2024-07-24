@@ -9,7 +9,9 @@
   "author": "navneet adlak",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "express": "^4.19.2",
-    "express-ejs-layouts": "^2.5.1"
+    "express-ejs-layouts": "^2.5.1",
+    "nodemon": "^3.1.4"
   }
 }

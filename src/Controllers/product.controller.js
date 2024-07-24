@@ -1,5 +1,6 @@
 import path from 'path';
 import ProductModel from '../models/product.model.js';
+import { error } from 'console';
 
 export default class ProductController {
     getProducts(req, res) {
@@ -8,16 +9,16 @@ export default class ProductController {
         res.render('index', { products });
     }
 
-    getAddForm(req,res){
-        return res.render('new-product')
+    getAddProduct(req, res, next){
+        res.render('new-product', {errorMessage: null});
     }
 
-    addnewProduct(req,res){
-        // access data from form.
-        console.log(req.body);
+    postAddProduct(req, res, next){
         ProductModel.add(req.body)
-        let products = ProductModel.get();
-        return res.render('products', {products});
+        var product = ProductModel.getAll();
+        res.render('index', {products});
     }
 }
+
+// export default ProductController;
 

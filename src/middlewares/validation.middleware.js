@@ -9,7 +9,7 @@ import { body, validationResult } from "express-validator";
 const validateRequest = async (req, res, next) => {
   // 1. setup rules for validation
   const rules = [
-    body("name").isEmpty().withMessage("Name is Required"),
+    body("name").notEmpty().withMessage("Name is Required"),
     body("price")
       .isFloat({ gt: 0 })
       .withMessage("Price should be positive value"),

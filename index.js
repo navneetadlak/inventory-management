@@ -7,12 +7,13 @@ import validationMiddleware from './src/middlewares/validation.middleware.js';
 
 // Initialize the express server
 const app = express();
+app.use(express.static("public"));
 
 // Middleware to parse JSON bodies
 app.use(express.urlencoded({extended : true }));
 // Use EJS Layouts middleware
 app.use(ejsLayouts);
-app.use(express.json);
+app.use(express.json());
 
 // setup view engine settings
 app.set('view engine', 'ejs');
@@ -23,7 +24,8 @@ const productController =  new ProductController();
 
 // Define routes
 app.get('/', productController.getProducts);
-app.get('/add-product', productController.getAddProduct);
+app.get('/new-product', productController.getAddProduct);
+app.get("/update-product", productController.getUpdateProductView);
 app.post('/', validationMiddleware, productController.postAddProduct);
 
 // Serve static files

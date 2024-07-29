@@ -7,7 +7,7 @@ export default class ProductModel {
       this.imageUrl = imageUrl;
     }
   
-    static get() {
+    static getAll() {
       return products;
     }
     static add(productObj) {

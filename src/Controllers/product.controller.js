@@ -1,10 +1,9 @@
 import path from 'path';
-import ProductModel from '../models/product.model.js';
-import { error } from 'console';
+import ProductModel from '../Models/product.models.js';
 
-export default class ProductController {
+class ProductController {
     getProducts(req, res) {
-        let products = ProductModel.get();
+        let products = ProductModel.getAll();
         console.log(products);
         res.render('index', { products });
     }
@@ -16,9 +15,9 @@ export default class ProductController {
     postAddProduct(req, res, next){
         ProductModel.add(req.body)
         var product = ProductModel.getAll();
-        res.render('index', {products});
+        res.render('index', {product});
     }
 }
 
-// export default ProductController;
+export default ProductController;
 

@@ -1,5 +1,4 @@
 import express from 'express';
-// const express = require('express');
 import ProductController from './src/controllers/product.controller.js';
 import ejsLayouts from 'express-ejs-layouts';
 import path from 'path';
@@ -26,12 +25,15 @@ const productController =  new ProductController();
 app.get('/', productController.getProducts);
 app.get('/new-product', productController.getAddProduct);
 app.get("/update-product/:id", productController.getUpdateProductView);
-app.get('/delete-product/:id', productController.deleteProduct);
-app.post('/', validationMiddleware, productController.postAddProduct);
+app.post('/delete-product/:id', productController.deleteProduct);
+app.post(  '/',
+    // uploadFile.single('imageUrl'),
+    validationMiddleware,
+    productController.postAddProduct);
 app.post("/update-product", productController.postUpdateProduct)
 
 // Serve static files
-app.use(express.static(path.join(path.resolve(), 'src', 'views')));
+// app.use(express.static(path.join(path.resolve(), 'src', 'views')));
 
 // Start the server and add error handling
 app.listen(3400, (err) => {

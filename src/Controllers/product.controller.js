@@ -1,21 +1,25 @@
-import ProductModel from "../Models/product.models.js";
+import ProductModel from "../models/product.models.js"
 
 class ProductController {
   getProducts(req, res) {
     console.log("request");
-    var products = ProductModel.getAll();
+    let products = ProductModel.getAll();
     console.log(products);
     res.render("index", { products });
   }
 
   getAddProduct(req, res, next) {
-    res.render("new-product", { errorMessage: null });
+    res.render("new-product",
+       { errorMessage: null });
   }
 
   postAddProduct(req, res, next) {
-    ProductModel.add(req.body);
-    var products = ProductModel.getAll();
-    res.render("index", { products });
+    const { name, desc, price } = req.body;
+    const imageUrl =
+      'images/' + req.file.filename;
+    ProductModel.add(name, desc, price, imageUrl);
+    let products = ProductModel.getAll();
+    res.render('index', { products });
   }
 
   getUpdateProductView(req, res, next) {
@@ -36,7 +40,7 @@ class ProductController {
 
   postUpdateProduct(req, res){
     ProductModel.update(req.body);
-    var products = ProductModel.getAll();
+    let products = ProductModel.getAll();
     res.render("index", { products });
   }
 
@@ -47,7 +51,7 @@ class ProductController {
        return res.status(401).send("Product Not Found");
       }
     ProductModel.delete(id);
-    var products = ProductModel.getAll();
+    let products = ProductModel.getAll();
     res.render("index", { products });
   }
 }

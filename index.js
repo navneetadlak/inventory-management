@@ -25,8 +25,10 @@ const productController =  new ProductController();
 // Define routes
 app.get('/', productController.getProducts);
 app.get('/new-product', productController.getAddProduct);
-app.get("/update-product", productController.getUpdateProductView);
+app.get("/update-product/:id", productController.getUpdateProductView);
+app.get('/delete-product/:id', productController.deleteProduct);
 app.post('/', validationMiddleware, productController.postAddProduct);
+app.post("/update-product", productController.postUpdateProduct)
 
 // Serve static files
 app.use(express.static(path.join(path.resolve(), 'src', 'views')));

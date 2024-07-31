@@ -10,6 +10,19 @@ export default class ProductModel {
     static getAll() {
       return products;
     }
+
+    static update(productObj){
+     const index = products.findIndex(
+      (p)=> p.id==productObj.id)
+     products[index] = productObj;
+    }
+
+    static delete(id){
+      const index = products.findIndex(
+        (p)=> p.id==id)
+      products.splice(index,1)
+    }
+
     static add(productObj) {
       let newProduct = new ProductModel(
         products.length + 1,
